@@ -6,18 +6,13 @@
     <title></title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link href="./css/styles.css" rel="stylesheet">
-    <script src='main.js'></script>
+    <script src="main.js"></script>
 </head>
 <body>
-  <%- include('header.ejs') %>
-  <table>
-    <% for (var i = 0; i <allTodos.length; i++) { %>
-    <tr>
-        <td>
-            <%= allTodos[i].title %>
-        </td>
-        </tr>
-    <% } %>
-  </table>
+ <!-- <h1>Todo Manager</h1> -->
+    <!-- for reuse the created common ejs file like header and footer  -->
+    <%- include("header.ejs") %>
+    <br />
+    <%- include("todos.ejs") %> <%- include("footer.ejs") %>
 </body>
 </html>
