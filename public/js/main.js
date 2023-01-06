@@ -1,2 +1,1 @@
-console.log("First JS import on EJS application!!");
-const name = "Madhuri";
+console.log("madhuri");
