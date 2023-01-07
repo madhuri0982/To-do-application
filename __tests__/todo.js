@@ -85,5 +85,6 @@ describe("Todo test suite ", () => {
     });
     const parsedUpdateResponse = JSON.parse(response.text);
     expect(parsedUpdateResponse.completed).toBe(true);
+    test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
   });
 });
