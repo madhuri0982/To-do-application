@@ -22,7 +22,7 @@ describe("Todo test suite ", () => {
     server.close();
   });
   test("Create new todo", async () => {
-    const res = await agent.get("/");
+    const res = await agent.get("/todos");
     const csrfToken = extractCsrfToken(res);
     const response = await agent.post("/todos").send({
       title: "Go to movie",
@@ -34,7 +34,7 @@ describe("Todo test suite ", () => {
   });
 
   test("Mark todo as completed (Updating Todo)", async () => {
-    let res = await agent.get("/");
+    let res = await agent.get("/todos");
     let csrfToken = extractCsrfToken(res);
     await agent.post("/todos").send({
       title: "Buy milk",
@@ -61,7 +61,7 @@ describe("Todo test suite ", () => {
   });
 
   test(" Delete todo using ID", async () => {
-    let res = await agent.get("/");
+    let res = await agent.get("/todos");
     let csrfToken = extractCsrfToken(res);
     await agent.post("/todos").send({
       title: "Go to shopping",
@@ -77,7 +77,7 @@ describe("Todo test suite ", () => {
     const dueTodayCount = parsedGroupedResponse.dueToday.length;
     const latestTodo = parsedGroupedResponse.dueToday[dueTodayCount - 1];
 
-    res = await agent.get("/");
+    res = await agent.get("/todos");
     csrfToken = extractCsrfToken(res);
 
     const response = await agent.put(`todos/${latestTodo.id}`).send({
