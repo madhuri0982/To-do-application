@@ -73,7 +73,7 @@ describe("Todo test suite ", () => {
     const gropuedTodosResponse = await agent
       .get("/todos")
       .set("Accept", "application/json");
-    const parsedGroupedResponse = JSON.parse(gropuedTodosResponse.text);
+    const parsedGroupedResponse = JSON.parse(groupedTodosResponse.text);
     const dueTodayCount = parsedGroupedResponse.dueToday.length;
     const latestTodo = parsedGroupedResponse.dueToday[dueTodayCount - 1];
 
@@ -86,5 +86,6 @@ describe("Todo test suite ", () => {
     const parsedUpdateResponse = JSON.parse(response.text);
     expect(parsedUpdateResponse.completed).toBe(true);
     test("Deletes a todo with the given ID if it exists and sends a boolean response", async () => {
+    }
   });
 });
