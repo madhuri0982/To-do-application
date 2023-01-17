@@ -1,6 +1,5 @@
 "use strict";
 const { Model, Op } = require("sequelize");
-
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -8,60 +7,53 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    // eslint-disable-next-line no-unused-vars
     static associate(models) {
       // define association here
     }
+
     static addTodo({ title, dueDate }) {
       return this.create({ title: title, dueDate: dueDate, completed: false });
     }
-    markAsCompleted() {
-      return this.update({ completed: true });
-    }
-    deletetodo() {
-      return this.removetask(id);
-    }
-    static getTodos() {
-      return this.findAll({ order: [["id", "ASC"]] });
-    }
-    static overdue() {
+
+    static async overdue() {
       return this.findAll({
         where: {
           dueDate: {
-            [Op.lt]: new Date().toLocaleDateString("en-CA"),
+            [Op.lt]: new Date(),
           },
           completed: false,
         },
-        order: [["id", "ASC"]],
       });
     }
-    static dueToday() {
+
+    static async dueLater() {
       return this.findAll({
         where: {
           dueDate: {
-            [Op.eq]: new Date().toLocaleDateString("en-CA"),
+            [Op.gt]: new Date(),
           },
           completed: false,
         },
-        order: [["id", "ASC"]],
       });
     }
-    static dueLater() {
+
+    static async dueToday() {
       return this.findAll({
         where: {
           dueDate: {
-            [Op.gt]: new Date().toLocaleDateString("en-CA"),
+            [Op.eq]: new Date(),
           },
           completed: false,
         },
-        order: [["id", "ASC"]],
       });
     }
-    static completedItems() {
+
+    static async completed() {
       return this.findAll({
         where: {
           completed: true,
         },
-        order: [["id", "ASC"]],
       });
     }
     static async remove(id) {
@@ -71,11 +63,11 @@ module.exports = (sequelize, DataTypes) => {
         },
       });
     }
-    setCompletionStatus(bool) {
-      return this.update({ completed: bool });
+
+    setCompletionStatus(completed) {
+      return this.update({ completed });
     }
   }
-
   Todo.init(
     {
       title: DataTypes.STRING,
